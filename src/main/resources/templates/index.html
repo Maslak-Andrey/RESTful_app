@@ -101,15 +101,9 @@
                                     <input type="password" class="form-control" id="passwordInputNew">
                                 </div>
                                 <!-- Roles -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="roleUser"
-                                           id="roleUserInputNew"
-                                           value="ROLE_USER"> User
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="roleAdmin"
-                                           id="roleAdminInputNew"
-                                           value="ROLE_ADMIN"> Admin
+                                <div class="form-group">
+                                    <label for="rolesInputNew">Roles</label>
+                                    <select class="form-control" id="rolesInputNew" multiple="multiple"></select>
                                 </div>
                                 <button class="btn btn-success" type="button" id="buttonInputNewSubmit">Add new
                                     user
@@ -152,15 +146,9 @@
                                         <input type="password" class="form-control" id="passwordEdit"/>
                                     </div>
                                     <!-- Roles -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="roleUser"
-                                               id="roleUserEdit"
-                                               value="ROLE_USER"> User
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="roleAdmin"
-                                               id="roleAdminEdit"
-                                               value="ROLE_ADMIN"> Admin
+                                    <div class="form-group">
+                                        <label class="control-label" for="rolesInputEdit">Roles</label>
+                                        <select class="form-control" id="rolesInputEdit" multiple="multiple"></select>
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +211,7 @@
                     <div class="card-header font-weight-bold">About user</div>
                     <div id="current-user-table">
                         <table class="table table-striped">
-                            <thead>
+                            <thead class="thead-light">
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Username</th>
@@ -232,7 +220,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--                            JS table-->
+                            <!--Содержимое таблицы-->
                             </tbody>
                         </table>
                     </div>

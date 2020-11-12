@@ -54,9 +54,9 @@ protected void configure(HttpSecurity http) throws Exception {
             //страницы аутентификаци доступна всем
             .antMatchers("/login").anonymous()
             // защищенные URL
-            .antMatchers("/index").permitAll()//.hasAnyRole("ADMIN")
+            .antMatchers("/index").hasAnyRole("ADMIN")//.permitAll()//
             // add rules
-            .antMatchers("/admin/**").permitAll()//.hasAnyRole("ADMIN")
+            .antMatchers("/admin/**").hasAnyRole("ADMIN") //.permitAll()//
             .antMatchers("/showuser").hasAnyRole("USER");
 }
 

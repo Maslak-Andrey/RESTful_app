@@ -1,5 +1,5 @@
 $(document).ready(getUsers());
-
+var allRoles = ["ROLE_USER", "ROLE_ADMIN"];
 //User Table
 function getUsers() {
     $("#table").empty();
@@ -45,6 +45,13 @@ $("#editUserModal").on('show.bs.modal', (e) => {
         $("#idEdit").empty().val(user.id);
         $("#usernameEdit").empty().val(user.username);
         $("#passwordEdit").empty().val(user.password);
+        $("#rolesInputEdit").empty();
+        $.each(allRoles, (i, role) => {
+            $("#rolesInputEdit").append(
+                $("<option>").text(role)
+            )
+        });
+        $("#rolesInputEdit").val(user.roles);
 
     });
 })
@@ -52,18 +59,11 @@ $("#editUserModal").on('show.bs.modal', (e) => {
 $("#buttonEditSubmit").on('click', (e) => {
     e.preventDefault();
 
-    // let roleCheck
-    // if ($("#roleUserEdit").prop('checked')){
-    //     roles: [$("#roleUserEdit").val()]
-    // } if ($("#roleAdminEdit").prop('checked')) {
-    //     roles: [$("#roleAdminEdit").val()]
-    // }
-
     let editUser = {
         id: $("#idEdit").val(),
         username: $("#usernameEdit").val(),
         password: $("#passwordEdit").val(),
-        roles: [$("#roleUserEdit").val()]
+        roles: $("#rolesInputEdit").val()
     }
 
     $.ajax({
@@ -75,7 +75,7 @@ $("#buttonEditSubmit").on('click', (e) => {
     }),
 
         $("#editUserModal").modal('hide'),
-        location.reload(),
+        location.reload();
         getUsers();
 })
 //Delete form
@@ -104,7 +104,7 @@ $("#deleteUserModal").on('show.bs.modal', (e) => {
             }).done((deleteMsg) => {
                 $("#deleteUserModal").modal('hide');
                 location.reload();
-                getUsers();
+                // getUsers();
             })
         })
     });
@@ -114,6 +114,12 @@ $('[href="#newUser"]').on('show.bs.tab', (e) => {
     $(() => {
         $("#usernameInputNew").empty().val("");
         $("#passwordInputNew").empty().val("");
+        $("#rolesInputNew").empty().val("");
+        $.each(allRoles, (i, role) => {
+            $("#rolesInputNew").append(
+                $("<option>").text(role)
+            )
+        });
     })
 })
 
@@ -123,7 +129,7 @@ $("#buttonInputNewSubmit").on('click', (e) => {
     let newUser = {
         username: $("#usernameInputNew").val(),
         password: $("#passwordInputNew").val(),
-        roles: [$("#roleUserInputNew").val()]
+        roles: $("#rolesInputNew").val()
     }
 
     $.ajax({
