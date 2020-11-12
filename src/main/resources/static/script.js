@@ -26,7 +26,8 @@ function getUsers() {
     });
 }
 $('[href="#v-pills-admin"]').on('show.bs.tab', (e) => {
-    getUsers();
+    // getUsers()
+    location.reload();
 })
 
 //Edit form
@@ -113,12 +114,6 @@ $('[href="#newUser"]').on('show.bs.tab', (e) => {
     $(() => {
         $("#usernameInputNew").empty().val("");
         $("#passwordInputNew").empty().val("");
-        $("#rolesInputNew").empty().val("");
-        // $.each(allRoles, (i, role) => {
-        //     $("#rolesInputNew").append(
-        //         $("<option>").text(role)
-        //     )
-        // });
     })
 })
 
@@ -126,9 +121,9 @@ $("#buttonInputNewSubmit").on('click', (e) => {
     e.preventDefault();
 
     let newUser = {
-        name: $("#usernameInputNew").val(),
+        username: $("#usernameInputNew").val(),
         password: $("#passwordInputNew").val(),
-        roles: $("#rolesInputNew").val()
+        roles: [$("#roleUserInputNew").val()]
     }
 
     $.ajax({
@@ -137,8 +132,32 @@ $("#buttonInputNewSubmit").on('click', (e) => {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(newUser)
-    }).done((msgSave) => {
-        getUsers();
-        $('#AdminTabs a[href="#usersTable"]').tab('show');
-    })
+    }),
+        getUsers(),
+        $('#AdminTabs a[href="#usersTable"]').tab('show'),
+        location.reload();
 })
+
+$('[href="#v-pills-user"]').on('show.bs.tab', (e) => {
+    $("#change-tabContent").hide(),
+    getCurrent();
+})
+
+function getCurrent() {
+    $.ajax({
+        url: "/getUser",
+        type: "GET",
+        dataType: "json"
+    }).done((msg) => {
+        let user = JSON.parse(JSON.stringify(msg));
+        $("#current-user-table tbody").empty().append(
+            $("<tr>").append(
+                $("<td>").text(user.id),
+                $("<td>").text(user.username),
+                $("<td>").text(user.password),
+                $("<td>").text(user.roles)
+            ));
+    }).fail(() => {
+        alert("Error Get All Users!")
+    })
+}
